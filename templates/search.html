@@ -1,5 +1,36 @@
-<ion-view view-title="Search">
+<ion-view view-title="Roles">
+  <ion-nav-bar class="bar-solinte">
+  <ion-nav-back-button>
+  </ion-nav-back-button>`
+</ion-nav-bar>
+      <ion-nav-buttons side="right">
+        <button  style='color: white !important' class="button button-icon ion-plus-circled" >
+        </button>
+      </ion-nav-buttons>
+            <ion-nav-buttons side="left">
+        <button  style='color: white !important' class="button button-icon ion-navicon" menu-toggle="left">
+        </button>
+      </ion-nav-buttons>
+
+
   <ion-content>
-    <h1>Search</h1>
+
+  
+  <ion-list>
+  <ion-item ng-repeat='rol in roles'>
+
+ <img  style="width: 50px;position: absolute; height: 50px; top: 0px; left: 0px; margin-top: 13px; margin-left: 5px;" ng-src="{{rol.sucursal.img_encabezado}}">
+
+      <p>{{rol.denominacion}}</p>
+    
+<ion-option-button  ng-click='infoDetalle(rol.rid)' style='background-color: #FF6B00 !important' class="button-assertive">Detalle</ion-option-button>
+    <ion-option-button ng-click='infoCompartir(rol.sucursal.cuis,rol.codigo,rol.verificadores)'style='background-color: #2A4924 !important' class="button-positive icon ion-gear-b"></ion-option-button>
+    
+
+  </ion-item>
+
+</ion-list>
+
+
   </ion-content>
 </ion-view>

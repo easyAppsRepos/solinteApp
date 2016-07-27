@@ -1,5 +1,17 @@
 /* Empty. Add your own CSS if you like */
 
+.detailPerfil{
+
+	    margin-top: 35px;
+    margin-left: 15px;
+
+    	
+}
+.shareI{
+
+	    margin-left: 17%;
+    font-size: 25px;
+}
 .logoContainer{
 
 	width: 75%;
@@ -12,3 +24,25 @@
 
 	width: 100%;
 }
+.item{
+	    max-height: 78px !important;
+}
+.item p{
+white-space: normal !important;
+    margin-left: 50px;
+}
+
+.bar-solinte{
+
+	background-color: #2A4924 !important;
+	color: white !important;
+}
+
+
+/*
+.popup{
+
+	border:solid yellow 15px;
+}
+
+*/

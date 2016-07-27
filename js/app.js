@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers'])
+angular.module('starter', ['ionic', 'starter.controllers', 'ngStorage'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -39,19 +39,23 @@ angular.module('starter', ['ionic', 'starter.controllers'])
   })
 
   .state('app.search', {
+    cache:false,
     url: '/search',
     views: {
       'menuContent': {
-        templateUrl: 'templates/search.html'
+        templateUrl: 'templates/search.html',
+        controller: 'mainController'
       }
     }
   })
 
   .state('app.browse', {
       url: '/browse',
+      cache:false,
       views: {
         'menuContent': {
-          templateUrl: 'templates/browse.html'
+          templateUrl: 'templates/browse.html',
+           controller: 'perfilCtrl'
         }
       }
     })
@@ -77,5 +81,17 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     }
   });
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/login');
+  //$urlRouterProvider.otherwise('/app/search');
+//console.log(localStorage.getItem('ngStorage-rToken').length!==null);
+  if(localStorage.getItem('ngStorage-rToken') !== null && localStorage.getItem('ngStorage-rToken').length>5){
+
+    $urlRouterProvider.otherwise("/app/search");
+}
+else{
+  // $urlRouterProvider.otherwise("/login");
+   $urlRouterProvider.otherwise("/login");
+}
+
+
+//  $urlRouterProvider.otherwise('/login');
 });

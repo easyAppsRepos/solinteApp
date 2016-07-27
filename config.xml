@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<widget id          =     "com.ionicframework.solinteApp"
+        version     =    "1.0.0"
+        xmlns       =    "http://www.w3.org/ns/widgets"
+        xmlns:gap   =    "http://phonegap.com/ns/1.0"
+        versionCode =   "1">
+  <name>SolinteApp</name>
+  <description>
+        SolinteApp
+    </description>
+  <author email="you@example.com" href="http://example.com.com/">
+      Your Name Here
+    </author>
+      <access origin="*"/>
+  <content src="index.html"/>
+
+  <preference name="phonegap-version" value="cli-5.2.0" />
+  <preference name="orientation" value="portrait" />
+   <preference name="permissions" value="none" />
+  <preference name="webviewbounce" value="false"/>
+  <preference name="UIWebViewBounce" value="false"/>
+  <preference name="DisallowOverscroll" value="true"/>
+  <preference name="android-minSdkVersion" value="16"/>
+  <preference name="BackupWebStorage" value="none"/>
+
+    <preference name="SplashScreen" value="splash" />
+
+
+<preference name="AutoHideSplashScreen" value="false" />
+
+
+  <feature name="StatusBar">
+    <param name="ios-package" value="CDVStatusBar" onload="true"/>
+  </feature>
+
+<preference name="StatusBarOverlaysWebView" value="false" />
+<preference name="StatusBarStyle" value="lightcontent" />
+<preference name="StatusBarBackgroundColor" value="#6239AB" />
+  <preference name="android-build-tool" value="gradle" />
+
+
+
+<gap:plugin name="cordova-plugin-inappbrowser" version="" source="npm" />
+<gap:plugin name="cordova-plugin-splashscreen" version="" source="npm" />
+
+<gap:plugin name="cordova-plugin-device" version="" source="npm" />
+<gap:plugin name="cordova-plugin-statusbar" version="" source="npm" />
+  <plugin name="ionic-plugin-keyboard" source="npm" />
+
+
+   <gap:plugin name="cordova-plugin-whitelist" version="1.0.0" source="npm" />
+  <gap:plugin name="cordova-plugin-network-information" source="npm" version="1.0.1" />
+  <gap:plugin name="cordova-plugin-socialsharing" source="npm" />
+
+  <icon src="icon.png" />
+    <!--
+
+  <icon src="icon.jpg" />
+
+    <icon gap:platform="android" gap:qualifier="ldpi" src="res/icon/android/drawable-ldpi-icon.jpg" />
+    <icon gap:platform="android" gap:qualifier="mdpi" src="res/icon/android/drawable-mdpi-icon.jpg" />
+    <icon gap:platform="android" gap:qualifier="hdpi" src="res/icon/android/drawable-hdpi-icon.jpg" />
+    <icon gap:platform="android" gap:qualifier="xhdpi" src="res/icon/android/drawable-xhdpi-icon.jpg" />
+    <icon gap:platform="android" gap:qualifier="xxhdpi" src="res/icon/android/drawable-xxhdpi-icon.jpg" />
+    <icon gap:platform="android" gap:qualifier="xxxhdpi" src="res/icon/android/drawable-xxxhdpi-icon.jpg" />
+
+
+<splash src="splash.png" />
+
+    <splash src="res/splash/android/ldpi.png" platform="android" qualifier="ldpi" />
+<splash src="res/splash/android/mdpi.png" platform="android" qualifier="mdpi" />
+<splash src="res/splash/android/hdpi.png" platform="android" qualifier="hdpi" />
+<splash src="res/splash/android/xhdpi.png" platform="android" qualifier="xhdpi" />
+
+
+
+
+
+    <icon gap:platform="ios" height="40" src="res/icon/ios/icon-40.jpg" width="40" />
+    <icon gap:platform="ios" height="80" src="res/icon/ios/icon-40@2x.jpg" width="80" />
+    <icon gap:platform="ios" height="50" src="res/icon/ios/icon-50.jpg" width="50" />
+    <icon gap:platform="ios" height="100" src="res/icon/ios/icon-50@2x.jpg" width="100" />
+    <icon gap:platform="ios" height="60" src="res/icon/ios/icon-60.jpg" width="60" />
+    <icon gap:platform="ios" height="120" src="res/icon/ios/icon-60@2x.jpg" width="120" />
+    <icon gap:platform="ios" height="180" src="res/icon/ios/icon-60@3x.jpg" width="180" />
+    <icon gap:platform="ios" height="72" src="res/icon/ios/icon-72.jpg" width="72" />
+    <icon gap:platform="ios" height="144" src="res/icon/ios/icon-72@2x.jpg" width="144" />
+    <icon gap:platform="ios" height="76" src="res/icon/ios/icon-76.jpg" width="76" />
+    <icon gap:platform="ios" height="152" src="res/icon/ios/icon-76@2x.jpg" width="152" />
+  -->
+
+
+
+</widget>
