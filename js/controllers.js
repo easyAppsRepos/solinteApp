@@ -101,7 +101,7 @@ if(res=='ERROR'){
 })
 
 //$cordovaSocialSharing
-.controller('mainController', function($scope, $stateParams, $localStorage, $ionicPopup, $ionicLoading, $cordovaSocialSharing, getData, login) {
+.controller('mainController', function($scope, $stateParams, $localStorage, $ionicPopup, $ionicLoading, getData, login) {
     console.log('Roles');
 
  $ionicLoading.show({
