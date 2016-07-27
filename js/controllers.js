@@ -237,7 +237,7 @@ $scope.getDataRoles = function(){
 $scope.getDataRoles();
 })
 
-.controller('loginCtrl', function($scope, $stateParams, $state, $localStorage, $ionicPopup, login, getData) {
+.controller('loginCtrl', function($scope, $stateParams, $state, $localStorage, $ionicPopup, $ionicLoading, login, getData) {
 
 $scope.logout = function (){
                 $localStorage.aToken = null;
@@ -250,7 +250,9 @@ $scope.logout = function (){
 $scope.loginData={};
   $scope.doLogin = function (){
 
-
+ $ionicLoading.show({
+      template: 'Cargando...'
+    }); 
 
     var user = $scope.loginData.username;
     var pass = $scope.loginData.password;
@@ -260,13 +262,21 @@ $scope.loginData={};
 
   login.login(user,pass).then(function(res){
 
+      if(res=='ERROR'){
+  $ionicLoading.hide(); 
+  alert('Ha ocurrido un error');
+  return true;
+}
+
       console.log(res);
        if(res.access_token){
+          $ionicLoading.hide(); 
                 $localStorage.aToken = res.access_token;
                 $localStorage.rToken = res.refresh_token;
                 $state.go('app.search');
         }   
         else{
+            $ionicLoading.hide(); 
           alert('credenciales invalidas');
         } 
 
