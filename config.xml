@@ -43,6 +43,10 @@
 <gap:plugin name="cordova-plugin-inappbrowser" version="" source="npm" />
 <gap:plugin name="cordova-plugin-splashscreen" version="" source="npm" />
 
+
+<gap:plugin name="cordova-plugin-datepicker" source="npm" />
+
+
 <gap:plugin name="cordova-plugin-device" version="" source="npm" />
 <gap:plugin name="cordova-plugin-statusbar" version="" source="npm" />
   <plugin name="ionic-plugin-keyboard" source="npm" />

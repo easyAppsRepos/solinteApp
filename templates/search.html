@@ -4,7 +4,7 @@
   </ion-nav-back-button>`
 </ion-nav-bar>
       <ion-nav-buttons side="right">
-        <button  style='color: white !important' class="button button-icon ion-plus-circled" >
+        <button  ng-click="openModal()" style='color: white !important' class="button button-icon ion-plus-circled" >
         </button>
       </ion-nav-buttons>
             <ion-nav-buttons side="left">
@@ -17,9 +17,12 @@
 
   
   <ion-list>
-  <ion-item ng-repeat='rol in roles'>
+<div ng-repeat="rol in roles" class="" style="
+    border-bottom: solid 1px lightgray;
+">
+  <ion-item style='    border-bottom: none !important; '>
 
- <img  style="width: 50px;position: absolute; height: 50px; top: 0px; left: 0px; margin-top: 13px; margin-left: 5px;" ng-src="{{rol.sucursal.img_encabezado}}">
+
 
       <p>{{rol.denominacion}}</p>
     
@@ -28,7 +31,8 @@
     
 
   </ion-item>
-
+   <img style='margin-top: 10px; width: 100%;    max-height: 127px;' ng-src="{{rol.sucursal.img_encabezado}}">
+</div>
 </ion-list>
 
 

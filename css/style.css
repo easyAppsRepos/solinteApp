@@ -4,6 +4,9 @@
 
 	    margin-top: 35px;
     margin-left: 15px;
+    text-align: center;
+    
+    font-size: 20px;
 
     	
 }
@@ -25,11 +28,11 @@
 	width: 100%;
 }
 .item{
-	    max-height: 78px !important;
+	    max-height: 200px !important;
 }
 .item p{
 white-space: normal !important;
-    margin-left: 50px;
+    
 }
 
 .bar-solinte{

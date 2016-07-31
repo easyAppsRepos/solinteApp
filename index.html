@@ -29,5 +29,93 @@
 
   <body ng-app="starter">
     <ion-nav-view></ion-nav-view>
+
+
+        <script id="my-modal.html" type="text/ng-template">
+  <ion-modal-view>
+
+
+    <ion-header-bar class="bar-solinte">
+
+
+
+      <h1 style='color: white' class="title">Agregar Rol</h1>
+
+          <div class="buttons">
+    <button style='color: white ' class="icon ion-android-cancel" ng-click="closeModal()"></button>
+  </div>
+
+    </ion-header-bar>
+
+
+
+
+    <ion-content style='background-color: #fafafa;'>
+
+<div style='margin-top: 20px' class="list">
+  <label class="item item-input item-stacked-label">
+    <span class="input-label">Descripcion</span>
+    <input type="text" placeholder="Descripcion del Rol">
+  </label>
+  <label class="item item-input item-stacked-label">
+    <span class="input-label">CUIS</span>
+    <input type="text" placeholder="Cuis Sucursal">
+  </label>
+  <label class="item item-input item-stacked-label">
+    <span class="input-label">Codigo</span>
+    <input type="text" placeholder="">
+  </label>
+    <label class="item item-input item-stacked-label">
+    <span class="input-label">Verificador</span>
+    <input type="text"  placeholder="XX">
+  </label>
+<button class="button button-positive" style="
+    margin-left: 16px;
+    margin-top: 30px;
+">
+  Agregar 
+</button>
+
+</div>
+
+
+
+    </ion-content>
+  </ion-modal-view>
+</script>
+
+
+
+        <script id="my-modal2.html" type="text/ng-template">
+  <ion-modal-view>
+
+
+    <ion-header-bar class="bar-solinte">
+
+
+
+      <h1 style='color: white' class="title">Buscar por fecha</h1>
+
+          <div class="buttons">
+    <button style='color: white ' class="icon ion-android-cancel" ng-click="closeModal2()"></button>
+  </div>
+
+    </ion-header-bar>
+
+
+
+
+    <ion-content style='background-color: #fafafa;' ng-controller='PlaylistCtrl'>
+
+<input type="date">
+
+
+
+    </ion-content>
+  </ion-modal-view>
+</script>
+
+
+
   </body>
 </html>

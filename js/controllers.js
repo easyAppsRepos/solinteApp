@@ -53,6 +53,10 @@ angular.module('starter.controllers', [])
 })
 
 .controller('PlaylistCtrl', function($scope, $stateParams, $localStorage) {
+
+
+
+
 })
 
 .controller('perfilCtrl', function($scope, $stateParams, $localStorage, $ionicPopup, $ionicLoading, getData, login) {
@@ -101,8 +105,73 @@ if(res=='ERROR'){
 })
 
 //$cordovaSocialSharing
-.controller('mainController', function($scope, $stateParams, $localStorage, $ionicPopup, $ionicLoading, $cordovaSocialSharing, getData, login) {
+.controller('mainController', function($scope, $stateParams, $localStorage, $ionicModal, $ionicPopup, $ionicLoading, $cordovaSocialSharing, getData, login) {
     console.log('Roles');
+
+
+//modal
+
+
+
+
+
+  $ionicModal.fromTemplateUrl('my-modal.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+
+    $scope.modal = modal;
+  });
+
+    $ionicModal.fromTemplateUrl('my-modal2.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal2) {
+
+    $scope.modal2 = modal2;
+  });
+
+  $scope.openModal = function() {
+      console.log('44');
+    $scope.modal.show();
+  };
+  $scope.closeModal = function() {
+    $scope.modal.hide();
+  };
+
+    $scope.openModal2 = function() {
+      console.log('442');
+    $scope.modal2.show();
+  };
+
+  $scope.closeModal2 = function() {
+    $scope.modal2.hide();
+  };
+
+
+  // Cleanup the modal when we're done with it!
+  $scope.$on('$destroy', function() {
+    $scope.modal.remove();
+     $scope.modal2.remove();
+  });
+  // Execute action on hide modal
+  $scope.$on('modal.hidden', function() {
+    // Execute action
+  });
+  // Execute action on remove modal
+  $scope.$on('modal.removed', function() {
+    // Execute action
+  });
+
+
+//end modal
+
+//login.addRol($localStorage.aToken).then(function(response){
+
+//  console.log(response);
+
+//});
+
 
  $ionicLoading.show({
       template: 'Cargando...'
@@ -186,7 +255,10 @@ $scope.infoDetalle = function(rid){
         type:'fgg' },
         {
           text:'Ver Detalle',
-          type:'button-positive'  
+          type:'button-positive',
+          onTap: function(){
+            $scope.openModal2();
+          }  
         }
         ]
         });
@@ -218,7 +290,7 @@ $scope.getDataRoles = function(){
 
                    if(response.access_token){
                 $localStorage.aToken = response.access_token;
-                $localStorage.rToken = res.refresh_token;
+                $localStorage.rToken = response.refresh_token;
                $scope.getDataRoles();
                    }  
 
@@ -328,7 +400,28 @@ console.log(refreshToken);
  // console.log(response);
   deferred.resolve(response);}).error(function(){deferred.resolve('ERROR')});
     return deferred.promise;
+    },
+
+          addRol: function(token) {
+
+  var deferred = $q.defer();
+      $http({
+    method: 'POST',
+    url: 'https://solinte.net/api.v1/usuario/roles/incorpora',
+    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+    transformRequest: function(obj) {
+        var str = [];
+        for(var p in obj)
+        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+        return str.join("&");
+    },
+    data:{acces_token: token, descripcion:'Prueba addRol', cuis:"DEMO10", rol_codigo: 'asCdy7YpST', rol_verificador:'RR'}
+}).success(function (response, status) {
+ // console.log(response);
+  deferred.resolve(response);}).error(function(){deferred.resolve('ERROR')});
+    return deferred.promise;
     }
+
     
 
   }
@@ -346,6 +439,21 @@ console.log(refreshToken);
   deferred.resolve(response);}).error(function(){deferred.resolve('ERROR')});
     return deferred.promise;
     },
+
+
+
+        addRol: function(token) {
+
+  var deferred = $q.defer();
+      $http({
+    method: 'POST',
+    url: 'https://solinte.net/api.v1/usuario/roles/incorpora',
+    data: {acces_token: token, descripcion:'Prueba addRol', cuis:"DEMO10", rol_codigo: 'asCdy7YpST', rol_verificador:'RR'}
+}).success(function (response, status) {
+  deferred.resolve(response);}).error(function(){deferred.resolve('ERROR')});
+    return deferred.promise;
+    },
+
 
         getPerfil: function(token) {
 

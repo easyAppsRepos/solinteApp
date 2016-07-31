@@ -12,18 +12,31 @@
 
   <ion-content style='background-color: #fafafa;'>
 
-<div style="text-align: center;
-    margin-top: 20px;">
+<div style="
+    text-align: left;
+    margin-top: 20px;
+    margin-left: 20px;
+    ">
   
-  <img src="img/userM.png" style="
-    height: 75px;
-">
-<br>
+  
+  <img src="img/userM.png" style="vertical-align: middle;">
+
 <a style="
     font-size: 19px;
     color: #2A4924;
+        margin-left: 17px;
 ">{{perfil.alias_publico}}</a>
 </div>
+<div style="
+    border-top: solid 1px lightgray;
+    margin-top: 20px;
+">
+  
+  <div class='detailPerfil'><b> {{perfil.ocupacion}}</b></div>
+  <div  class='detailPerfil'> <b>{{perfil.vive_en}}</b></div>
+  <div  class='detailPerfil'><b>{{perfil.sitio_web}}</b></div>
+</div>
+<!--
 <div style="
     border-top: solid 1px lightgray;
     margin-top: 20px;
@@ -33,6 +46,6 @@
   <div  class='detailPerfil'><img style='vertical-align: middle;' src="img/direccion.png"> <b>Residencia:</b> {{perfil.vive_en}}</div>
   <div  class='detailPerfil'><img style='vertical-align: middle;' src="img/web.png"> <b>Sitio web:</b> {{perfil.sitio_web}}</div>
 </div>
-
+-->
   </ion-content>
 </ion-view>
