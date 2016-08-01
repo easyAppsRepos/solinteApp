@@ -35,7 +35,7 @@
 
 <preference name="StatusBarOverlaysWebView" value="false" />
 <preference name="StatusBarStyle" value="lightcontent" />
-<preference name="StatusBarBackgroundColor" value="#6239AB" />
+<preference name="StatusBarBackgroundColor" value="#2A4924" />
   <preference name="android-build-tool" value="gradle" />
 
 
