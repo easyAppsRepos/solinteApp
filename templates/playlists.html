@@ -1,9 +1,27 @@
-<ion-view view-title="Playlists">
-  <ion-content>
-    <ion-list>
-      <ion-item ng-repeat="playlist in playlists" href="#/app/playlists/{{playlist.id}}">
-        {{playlist.title}}
-      </ion-item>
-    </ion-list>
+<ion-view view-title="Acerca de Solinte App">
+  <ion-nav-bar class="bar-solinte">
+  <ion-nav-back-button>
+  </ion-nav-back-button>`
+</ion-nav-bar>
+
+            <ion-nav-buttons side="left">
+        <button  style='color: white !important' class="button button-icon ion-navicon" menu-toggle="left">
+        </button>
+      </ion-nav-buttons>
+
+
+  <ion-content style='background-color: #fafafa;'>
+
+<!--
+<div style="
+    border-top: solid 1px lightgray;
+    margin-top: 20px;
+">
+  
+  <div class='detailPerfil'><img  style='vertical-align: middle;' src="img/ocupacion.png"> <b>Ocupacion:</b> {{perfil.ocupacion}}</div>
+  <div  class='detailPerfil'><img style='vertical-align: middle;' src="img/direccion.png"> <b>Residencia:</b> {{perfil.vive_en}}</div>
+  <div  class='detailPerfil'><img style='vertical-align: middle;' src="img/web.png"> <b>Sitio web:</b> {{perfil.sitio_web}}</div>
+</div>
+-->
   </ion-content>
 </ion-view>

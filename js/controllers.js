@@ -52,14 +52,67 @@ angular.module('starter.controllers', [])
   ];
 })
 
-.controller('PlaylistCtrl', function($scope, $stateParams, $localStorage) {
+.controller('PlaylistCtrl', function($scope, $stateParams, $localStorage, $ionicLoading, $rootScope, getData) {
 
+
+$scope.$on('rid', function(event, args) {
+
+   $scope.rid=args.any.rid;
+   console.log(args.any.rid);
+});
+
+
+$scope.$on('clean', function(event, args) {
+
+   $scope.rid=0;
+   $scope.message='';
+   $scope.fecha='';
+});
+
+
+$scope.buscarFecha=function(fecha){
+  var tr = function(e){
+    var f;
+if(parseInt(e)<10){f='0'+e}
+  else{f=e;}
+    return f;
+  }
+  
+// YYYY-MM-DD
+  var date = fecha;
+var fechaEnviar=(date.getFullYear()  + '-' + tr((date.getMonth() + 1)) + '-' +  tr(date.getDate()));
+
+console.log(fechaEnviar);
+$scope.infoDetalle($scope.rid,fechaEnviar);
+}
+
+$scope.infoDetalle = function(rid,fecha){
+ $ionicLoading.show({
+      template: 'Cargando...'
+    }); 
+
+    getData.getSaldo(rid,$localStorage.aToken,fecha).then(function(res){
+
+            if(res=='ERROR'){
+  $ionicLoading.hide(); 
+  alert('Ha ocurrido un error');
+  return true;
+}
+
+  $ionicLoading.hide(); 
+      console.log(res);
+      $scope.saldo = res.solinte.usuario.roles.saldo;
+      $scope.message = 'Su saldo en la fecha: '+$scope.saldo.fecha + ' es de $'+$scope.saldo.saldo;
+
+    });
+
+};
 
 
 
 })
 
-.controller('perfilCtrl', function($scope, $stateParams, $localStorage, $ionicPopup, $ionicLoading, getData, login) {
+.controller('perfilCtrl', function($scope, $stateParams, $rootScope, $localStorage, $ionicPopup, $ionicLoading, getData, login) {
 
 
 
@@ -104,8 +157,82 @@ if(res=='ERROR'){
 
 })
 
+
+
+
+.controller('addRolCtrl', function($scope, $stateParams, $localStorage, $rootScope, $ionicModal, $ionicPopup, $ionicLoading, $cordovaSocialSharing, getData, login) {
+
+
+$scope.$on('clean1', function(event, args) {
+
+$scope.r={};
+
+});
+
+
+$scope.r={};
+$scope.agregarRol=function(){
+ $ionicLoading.show({
+      template: 'Cargando...'
+    }); 
+
+
+  console.log($scope.r);
+
+$scope.r.acces_token= $localStorage.aToken;
+  login.addRol($scope.r).then(function(res){
+
+      if(res=='ERROR'){
+  $ionicLoading.hide(); 
+  alert('Ha ocurrido un error');
+  return true;
+}
+
+      console.log(res);
+      if(res.token.error=="expired_token"){
+        console.log('token expire');
+        login.renovarToken($localStorage.rToken).then(function(response){
+            console.log(response);
+
+                   if(response.access_token){
+                $localStorage.aToken = response.access_token;
+                $localStorage.rToken = response.refresh_token;
+               $scope.agregarRol();
+                   }  
+
+
+        });
+      }
+
+      else{
+
+
+            if(res.solinte.mensaje!==undefined){
+
+              alert('Agregado correctamente');
+              $ionicLoading.hide(); 
+            }           
+
+             else{
+              alert('Datos Incorrectos');
+              $ionicLoading.hide(); 
+            }
+
+            // $ionicLoading.hide(); 
+           // alert('Rol Agregado Correctamente');
+      }
+
+
+    });
+
+
+}
+
+
+})
+
 //$cordovaSocialSharing
-.controller('mainController', function($scope, $stateParams, $localStorage, $ionicModal, $ionicPopup, $ionicLoading, $cordovaSocialSharing, getData, login) {
+.controller('mainController', function($scope, $stateParams, $localStorage, $rootScope, $ionicModal, $ionicPopup, $ionicLoading, $cordovaSocialSharing, getData, login) {
     console.log('Roles');
 
 
@@ -136,15 +263,19 @@ if(res=='ERROR'){
     $scope.modal.show();
   };
   $scope.closeModal = function() {
+     
+$rootScope.$broadcast('clean1');
     $scope.modal.hide();
   };
 
     $scope.openModal2 = function() {
       console.log('442');
+
     $scope.modal2.show();
   };
 
   $scope.closeModal2 = function() {
+$rootScope.$broadcast('clean');
     $scope.modal2.hide();
   };
 
@@ -206,7 +337,7 @@ $scope.compartirWhats=function(cuis,codigo,verificadores){
 
 $scope.infoCompartir = function(cuis,codigo,verificadores){
 
-    var template=  '<div class="ttp"><div style="margin-top:15px"><a style="color:black;font-weight: bold;" >CUIS Otorgante:  </a>'+cuis+'<div><br>  <div><a style="color:black;font-weight: bold;">Código de Rol:  </a>'+codigo+'</div ><br><div><a style="color:black;font-weight: bold;">Verificadores:  </a>'+verificadores+'</div>   <div style="margin-top: 30px;margin-bottom: 8px;"> <a ng-click="compartirWhats('+"'"+cuis+"'"+','+"'"+codigo+"'"+','+"'"+verificadores+"'"+')" class="shareI icon ion-social-whatsapp"></a> <a class="shareI icon ion-android-mail"></a> <a ng-click="compartirOtro('+"'"+cuis+"'"+','+"'"+codigo+"'"+','+"'"+verificadores+"'"+')" class="shareI icon ion-android-textsms"></a> </div> </div>';
+    var template=  '<div class="ttp"><div style="margin-top:15px"><a style="color:black;font-weight: bold;" >CUIS Otorgante:  </a>'+cuis+'<div><br>  <div><a style="color:black;font-weight: bold;">Código de Rol:  </a>'+codigo+'</div ><br><div><a style="color:black;font-weight: bold;">Verificadores:  </a>'+verificadores+'</div>   <div style="margin-top: 30px;margin-bottom: 8px;"> <a ng-click="compartirWhats('+"'"+cuis+"'"+','+"'"+codigo+"'"+','+"'"+verificadores+"'"+')" class="shareI icon ion-social-whatsapp"></a> <a ng-click="compartirOtro('+"'"+cuis+"'"+','+"'"+codigo+"'"+','+"'"+verificadores+"'"+')" class="shareI icon ion-android-share-alt"></a> </div> </div>';
 
    // An elaborate, custm popup
    var myPopup = $ionicPopup.show({
@@ -228,7 +359,7 @@ $scope.infoDetalle = function(rid){
       template: 'Cargando...'
     }); 
 
-    getData.getSaldo(rid,$localStorage.aToken).then(function(res){
+    getData.getSaldo(rid,$localStorage.aToken,'hoy').then(function(res){
 
             if(res=='ERROR'){
   $ionicLoading.hide(); 
@@ -238,6 +369,7 @@ $scope.infoDetalle = function(rid){
 
   $ionicLoading.hide(); 
       console.log(res);
+      $rootScope.$broadcast('rid', { any: {rid:rid} });
       $scope.saldo = res.solinte.usuario.roles.saldo;
 
 
@@ -254,7 +386,7 @@ $scope.infoDetalle = function(rid){
         { text: 'Cerrar',
         type:'fgg' },
         {
-          text:'Ver Detalle',
+          text:'Por fecha',
           type:'button-positive',
           onTap: function(){
             $scope.openModal2();
@@ -402,7 +534,7 @@ console.log(refreshToken);
     return deferred.promise;
     },
 
-          addRol: function(token) {
+          addRol: function(dataa) {
 
   var deferred = $q.defer();
       $http({
@@ -415,7 +547,8 @@ console.log(refreshToken);
         str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
         return str.join("&");
     },
-    data:{acces_token: token, descripcion:'Prueba addRol', cuis:"DEMO10", rol_codigo: 'asCdy7YpST', rol_verificador:'RR'}
+      data:dataa
+   // data:{acces_token: token, descripcion:'Prueba addRol', cuis:"DEMO10", rol_codigo: 'asCdy7YpST', rol_verificador:'RR'}
 }).success(function (response, status) {
  // console.log(response);
   deferred.resolve(response);}).error(function(){deferred.resolve('ERROR')});
@@ -466,12 +599,12 @@ console.log(refreshToken);
     return deferred.promise;
     },
 
-        getSaldo: function(rid,token) {
+        getSaldo: function(rid,token,fecha) {
 
   var deferred = $q.defer();
       $http({
     method: 'GET',
-    url: 'https://solinte.net/api.v1/usuario/roles/saldo/'+rid+'/hoy?acces_token='+token,
+    url: 'https://solinte.net/api.v1/usuario/roles/saldo/'+rid+'/'+fecha+'?acces_token='+token,
 }).success(function (response, status) {
   deferred.resolve(response);}).error(function(){deferred.resolve('ERROR')});
     return deferred.promise;

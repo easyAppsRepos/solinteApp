@@ -52,24 +52,24 @@
 
     <ion-content style='background-color: #fafafa;'>
 
-<div style='margin-top: 20px' class="list">
+<div style='margin-top: 20px' class="list" ng-controller='addRolCtrl' >
   <label class="item item-input item-stacked-label">
     <span class="input-label">Descripcion</span>
-    <input type="text" placeholder="Descripcion del Rol">
+    <input type="text" placeholder="Descripcion del Rol" ng-model='r.descripcion'>
   </label>
   <label class="item item-input item-stacked-label">
     <span class="input-label">CUIS</span>
-    <input type="text" placeholder="Cuis Sucursal">
+    <input type="text" placeholder="Cuis Sucursal" ng-model='r.cuis'>
   </label>
   <label class="item item-input item-stacked-label">
     <span class="input-label">Codigo</span>
-    <input type="text" placeholder="">
+    <input type="text" placeholder="" ng-model='r.rol_codigo'>
   </label>
     <label class="item item-input item-stacked-label">
     <span class="input-label">Verificador</span>
-    <input type="text"  placeholder="XX">
+    <input type="text"  placeholder="XX" ng-model='r.rol_verificador'>
   </label>
-<button class="button button-positive" style="
+<button ng-click='agregarRol()' class="button button-positive" style="
     margin-left: 16px;
     margin-top: 30px;
 ">
@@ -106,11 +106,38 @@
 
 
     <ion-content style='background-color: #fafafa;' ng-controller='PlaylistCtrl'>
+<div style="
+    
+    margin-top: 20px;
+    position: absolute;
+    font-size: 18px;
+    width: 100%;
+    text-align: center;
 
-<input type="date">
+">Seleccione la fecha deseada</div>
+  <div style="
+      position: absolute;
+      margin-top: 70px;
+      margin-left: 20px;
+          width: calc(100% - 20px);
+  ">
+<input type="date" ng-model='fecha'>
 
+ <button style='    position: absolute;
+    right: 0;
+    margin-right: 20px;
+    top: 0;
+    margin-top: 0px;' class="button button-small button-positive " ng-click="buscarFecha(fecha)">Buscar</button>
+</div>
 
-
+  <div style="
+      margin-left: 10px;
+      margin-right: 10px;
+      position: absolute;
+      margin-top: 190px;
+      font-size: 18px;
+      text-align: center;
+  ">{{message}}</div>
     </ion-content>
   </ion-modal-view>
 </script>
