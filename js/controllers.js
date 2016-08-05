@@ -403,9 +403,9 @@ $scope.compartirWhats=function(cuis,codigo,verificadores){
 }
 
 
-$scope.infoCompartir = function(cuis,codigo,verificadores){
+$scope.infoCompartir = function(cuis,codigo,verificadores,linkPortal){  
 
-    var template=  '<div class="ttp"><div style="margin-top:15px"><a style="color:black;font-weight: bold;" >CUIS Otorgante:  </a>'+cuis+'<div><br>  <div><a style="color:black;font-weight: bold;">Código de Rol:  </a>'+codigo+'</div ><br><div><a style="color:black;font-weight: bold;">Verificadores:  </a>'+verificadores+'</div>   <div style="margin-top: 30px;margin-bottom: 8px;"> <a ng-click="compartirWhats('+"'"+cuis+"'"+','+"'"+codigo+"'"+','+"'"+verificadores+"'"+')" class="shareI icon ion-social-whatsapp"></a> <a ng-click="compartirOtro('+"'"+cuis+"'"+','+"'"+codigo+"'"+','+"'"+verificadores+"'"+')" class="shareI icon ion-android-share-alt"></a> </div> </div>';
+    var template=  '<div class="ttp"><div style="margin-top:15px"><a style="color:black;font-weight: bold;" href="'+linkPortal+'">Link Portal</a></div><br> <div><a style="color:black;font-weight: bold;" >CUIS Otorgante:  </a>'+cuis+'</div ><br> <div><a style="color:black;font-weight: bold;">Código de Rol:  </a>'+codigo+'</div ><br><div><a style="color:black;font-weight: bold;">Verificadores:  </a>'+verificadores+'</div>   <div style="margin-top: 30px;margin-bottom: 8px;"> <a ng-click="compartirWhats('+"'"+cuis+"'"+','+"'"+codigo+"'"+','+"'"+verificadores+"'"+')" class="shareI icon ion-social-whatsapp"></a> <a ng-click="compartirOtro('+"'"+cuis+"'"+','+"'"+codigo+"'"+','+"'"+verificadores+"'"+')" class="shareI icon ion-android-share-alt"></a> </div> </div>';
 
    // An elaborate, custm popup
    var myPopup = $ionicPopup.show({

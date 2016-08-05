@@ -13,12 +13,12 @@
       </ion-nav-buttons>
 
 
-  <ion-content>
+  <ion-content >
 
   
   <ion-list>
 <div ng-repeat="rol in roles" class="" style="
-    border-bottom: solid 1px lightgray;
+    border-bottom: solid 1px lightgray;       border-bottom: none !important; margin-top: 35px
 ">
   <ion-item style='    border-bottom: none !important; ' click-for-options>
 
@@ -27,12 +27,12 @@
       <p>{{rol.denominacion}}</p>
     
 <ion-option-button  ng-click='infoDetalle(rol.rid)' style='background-color: #FF6B00 !important' class="button-assertive">Saldo</ion-option-button>
-    <ion-option-button ng-click='infoCompartir(rol.sucursal.cuis,rol.codigo,rol.verificadores)'style='background-color: #2A4924 !important' class="button-positive icon ion-gear-b"></ion-option-button>
+    <ion-option-button ng-click='infoCompartir(rol.sucursal.cuis,rol.codigo,rol.verificadores,rol.sucursal.portal)'style='background-color: #2A4924 !important' class="button-positive icon ion-gear-b"></ion-option-button>
     
 
   </ion-item>
 
-   <img style='margin-top: 10px; width: 100%;    max-height: 127px;'  ng-src="{{rol.sucursal.img_encabezado}}">
+   <img style='margin-top: 9px; width: 95%;      margin-left: 2.5%;  max-height: 127px;'  ng-src="{{rol.sucursal.img_encabezado}}">
 
 </div>
 </ion-list>
