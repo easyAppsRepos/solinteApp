@@ -4,9 +4,9 @@
         xmlns       =    "http://www.w3.org/ns/widgets"
         xmlns:gap   =    "http://phonegap.com/ns/1.0"
         versionCode =   "1">
-  <name>SolinteApp</name>
+  <name>Solinte</name>
   <description>
-        SolinteApp
+        Solinte App
     </description>
   <author email="you@example.com" href="http://example.com.com/">
       Your Name Here
@@ -62,7 +62,7 @@
     <icon gap:platform="android" gap:qualifier="hdpi" src="res/icon/android/ICO72.png" />
     <icon gap:platform="android" gap:qualifier="xhdpi" src="res/icon/android/ICO114.png" />
     <icon gap:platform="android" gap:qualifier="xxhdpi" src="res/icon/android/ICO144.png" />
-    
+
     <!--
 
   <icon src="icon.jpg" />
