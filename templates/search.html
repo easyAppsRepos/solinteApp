@@ -20,7 +20,7 @@
 <div ng-repeat="rol in roles" class="" style="
     border-bottom: solid 1px lightgray;
 ">
-  <ion-item style='    border-bottom: none !important; '>
+  <ion-item style='    border-bottom: none !important; ' click-for-options>
 
 
 
@@ -31,7 +31,9 @@
     
 
   </ion-item>
-   <img style='margin-top: 10px; width: 100%;    max-height: 127px;' ng-src="{{rol.sucursal.img_encabezado}}">
+
+   <img style='margin-top: 10px; width: 100%;    max-height: 127px;'  ng-src="{{rol.sucursal.img_encabezado}}">
+
 </div>
 </ion-list>
 

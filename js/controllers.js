@@ -52,7 +52,7 @@ angular.module('starter.controllers', [])
   ];
 })
 
-.controller('PlaylistCtrl', function($scope, $stateParams, $localStorage, $ionicLoading, $rootScope, getData) {
+.controller('PlaylistCtrl', function($scope, $stateParams, $localStorage, $ionicPopup, $ionicLoading, $rootScope, getData) {
 
 
 $scope.$on('rid', function(event, args) {
@@ -95,7 +95,15 @@ $scope.infoDetalle = function(rid,fecha){
 
             if(res=='ERROR'){
   $ionicLoading.hide(); 
-  alert('Ha ocurrido un error');
+
+  $ionicPopup.alert({
+     title: 'Error',
+     template: '<h4 style="text-align:center">Ha ocurrido un error</h4>'
+   }).then(function(res) {
+    return true;
+   });
+
+
   return true;
 }
 
@@ -126,7 +134,16 @@ $scope.getPerfil = function(){
       console.log(res);
 if(res=='ERROR'){
   $ionicLoading.hide(); 
-  alert('Ha ocurrido un error');
+ 
+ //
+  $ionicPopup.alert({
+     title: 'Error',
+     template: '<h4 style="text-align:center">Ha ocurrido un error</h4>'
+   }).then(function(res) {
+    return true;
+   });
+
+ //
   return true;
 }
       if(res.token.error=="expired_token"){
@@ -181,10 +198,23 @@ $scope.agregarRol=function(){
 
 $scope.r.acces_token= $localStorage.aToken;
   login.addRol($scope.r).then(function(res){
-
+   
       if(res=='ERROR'){
+
   $ionicLoading.hide(); 
-  alert('Ha ocurrido un error');
+      
+//
+
+
+  $ionicPopup.alert({
+     title: 'Error',
+     template: '<h4 style="text-align:center">Ha ocurrido un error</h4>'
+   }).then(function(res) {
+
+    return true;
+   });
+//
+
   return true;
 }
 
@@ -208,14 +238,38 @@ $scope.r.acces_token= $localStorage.aToken;
 
 
             if(res.solinte.mensaje!==undefined){
+//if(true){
 
-              alert('Agregado correctamente');
-              $ionicLoading.hide(); 
+              $rootScope.$broadcast('closeM');
+
+                $ionicLoading.hide();
+
+             // $rootScope.$broadcast('closeM');
+
+                
+            //
+
+              $ionicPopup.alert({
+              title: 'Completado',
+              template: '<h4 style="text-align:center">Agregado correctamente</h4>'
+              }).then(function(res) {
+              return true;
+              });
+
+            //
+
+             
             }           
 
              else{
-              alert('Datos Incorrectos');
               $ionicLoading.hide(); 
+                $ionicPopup.alert({
+     title: 'Error',
+     template: '<h4 style="text-align:center">Ha ocurrido un error</h4>'
+   }).then(function(res) {
+    return true;
+   });
+              
             }
 
             // $ionicLoading.hide(); 
@@ -238,7 +292,14 @@ $scope.r.acces_token= $localStorage.aToken;
 
 //modal
 
+  $scope.$on('closeM', function(event, args) {
+console.log('ss3333');
+$scope.$applyAsync(function(){
+  $scope.closeModal();
+  $scope.getDataRoles();
+});
 
+});
 
 
 
@@ -262,11 +323,18 @@ $scope.r.acces_token= $localStorage.aToken;
       console.log('44');
     $scope.modal.show();
   };
+
+
+
+
   $scope.closeModal = function() {
      
 $rootScope.$broadcast('clean1');
     $scope.modal.hide();
   };
+
+
+
 
     $scope.openModal2 = function() {
       console.log('442');
@@ -363,7 +431,14 @@ $scope.infoDetalle = function(rid){
 
             if(res=='ERROR'){
   $ionicLoading.hide(); 
-  alert('Ha ocurrido un error');
+  //
+  $ionicPopup.alert({
+     title: 'Error',
+     template: '<h4 style="text-align:center">Ha ocurrido un error</h4>'
+   }).then(function(res) {
+    return true;
+   });
+  //
   return true;
 }
 
@@ -408,7 +483,14 @@ $scope.getDataRoles = function(){
 
       if(res=='ERROR'){
   $ionicLoading.hide(); 
-  alert('Ha ocurrido un error');
+  //
+    $ionicPopup.alert({
+     title: 'Error',
+     template: '<h4 style="text-align:center">Ha ocurrido un error</h4>'
+   }).then(function(res) {
+    return true;
+   });
+  //
   return true;
 }
 
@@ -468,7 +550,14 @@ $scope.loginData={};
 
       if(res=='ERROR'){
   $ionicLoading.hide(); 
-  alert('Ha ocurrido un error');
+ //
+  $ionicPopup.alert({
+     title: 'Credenciales invalidas',
+     template: '<h4 style="text-align:center">Error de acceso, verifique sus datos</h4>'
+   }).then(function(res) {
+    return true;
+   });
+ //
   return true;
 }
 
@@ -481,7 +570,14 @@ $scope.loginData={};
         }   
         else{
             $ionicLoading.hide(); 
-          alert('credenciales invalidas');
+          //
+  $ionicPopup.alert({
+     title: 'Credenciales invalidas',
+     template: '<h4 style="text-align:center">Error de acceso, verifique sus datos</h4>'
+   }).then(function(res) {
+    return true;
+   });
+ //
         } 
 
 
@@ -614,7 +710,45 @@ console.log(refreshToken);
 
 
   }
-});
+})
+
+.directive('clickForOptions', ['$ionicGesture', function($ionicGesture) {
+    return {
+        restrict: 'A',
+        link: function (scope, element, attrs) {
+            $ionicGesture.on('tap', function(e){
+
+                // Grab the content
+                var content = element[0].querySelector('.item-content');
+
+                // Grab the buttons and their width
+                var buttons = element[0].querySelector('.item-options');
+
+                if (!buttons) {
+                    console.log('There are no option buttons');
+                    return;
+                }
+                var buttonsWidth = buttons.offsetWidth;
+
+                ionic.requestAnimationFrame(function() {
+                    content.style[ionic.CSS.TRANSITION] = 'all ease-out .25s';
+
+                    if (!buttons.classList.contains('invisible')) {
+                        console.log('close');
+                        content.style[ionic.CSS.TRANSFORM] = '';
+                        setTimeout(function() {
+                            buttons.classList.add('invisible');
+                        }, 250);                
+                    } else {
+                        buttons.classList.remove('invisible');
+                        content.style[ionic.CSS.TRANSFORM] = 'translate3d(-' + buttonsWidth + 'px, 0, 0)';
+                    }
+                });     
+
+            }, element);
+        }
+    };
+}]);
 
 ///usuario/roles/saldo/{rid}/{fecha}
 

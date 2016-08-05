@@ -12,6 +12,19 @@
 }
 
 
+.degra{
+
+	    
+      top: 0px;
+      left: 0px;
+      border-radius: 10px 10px 0px 0px;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(39, 44, 48, 0.3) 40%, rgba(62, 69, 76, 0.3) 60%, rgba(85, 94, 104, 0.3)); }
+
+
+}
+
 
 .texD{
 	color: white;
@@ -19,6 +32,11 @@
 
 .popup-head{
 	background-color: #2A4924 !important;
+}
+
+.popup-head h3{
+
+	    color: #fafafa !important;
 }
 .shareI{
 
