@@ -57,15 +57,21 @@
   <gap:plugin name="cordova-plugin-socialsharing" source="npm" />
 
   <icon src="icon.png" />
+
+      <icon gap:platform="android" gap:qualifier="mdpi" src="res/icon/android/ICO57.png" />
+    <icon gap:platform="android" gap:qualifier="hdpi" src="res/icon/android/ICO72.png" />
+    <icon gap:platform="android" gap:qualifier="xhdpi" src="res/icon/android/ICO114.png" />
+    <icon gap:platform="android" gap:qualifier="xxhdpi" src="res/icon/android/ICO144.png" />
+    
     <!--
 
   <icon src="icon.jpg" />
 
     <icon gap:platform="android" gap:qualifier="ldpi" src="res/icon/android/drawable-ldpi-icon.jpg" />
-    <icon gap:platform="android" gap:qualifier="mdpi" src="res/icon/android/drawable-mdpi-icon.jpg" />
-    <icon gap:platform="android" gap:qualifier="hdpi" src="res/icon/android/drawable-hdpi-icon.jpg" />
-    <icon gap:platform="android" gap:qualifier="xhdpi" src="res/icon/android/drawable-xhdpi-icon.jpg" />
-    <icon gap:platform="android" gap:qualifier="xxhdpi" src="res/icon/android/drawable-xxhdpi-icon.jpg" />
+    <icon gap:platform="android" gap:qualifier="mdpi" src="res/icon/android/ICO57.png" />
+    <icon gap:platform="android" gap:qualifier="hdpi" src="res/icon/android/ICO72.png" />
+    <icon gap:platform="android" gap:qualifier="xhdpi" src="res/icon/android/ICO114.png" />
+    <icon gap:platform="android" gap:qualifier="xxhdpi" src="res/icon/android/ICO144.png" />
     <icon gap:platform="android" gap:qualifier="xxxhdpi" src="res/icon/android/drawable-xxxhdpi-icon.jpg" />
 
 
