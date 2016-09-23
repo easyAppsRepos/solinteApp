@@ -32,6 +32,9 @@
 
     <canvas></canvas>
     <script>
+
+
+    //aarbol
 		/*
 		   =================================================================
 			script: CrappyBird
@@ -108,6 +111,7 @@
             // set up some inital values
             WIDTH: 320,
             HEIGHT: 480,
+            anterior:380,
             scale: 1,
             // the position of the canvas
             // in relation to the screen
@@ -306,27 +310,8 @@
             },
 
 
-            rectImg: function (x, y, w, h, img) {
-
-              
-                            var pat=FB.ctx.createPattern(img,"repeat");
-                            FB.ctx.fillStyle=pat;
-                             FB.ctx.fillRect(x, y,w, h);
-
-
-             
-            },
-
-
             rect: function (x, y, w, h, col) {
-/*
-                if(h<50){
-                            var img = new Image();
-                            img.src = 'terra.png';
-                            var pat=FB.ctx.createPattern(img,"repeat-x");
-                            FB.ctx.fillStyle=pat;
-                            FB.ctx.fill();
-                }else{FB.ctx.fillStyle = col;}*/
+ //c25 drawFractalTree(FB.ctx);
                 FB.ctx.fillStyle = col;
                 FB.ctx.fillRect(x, y, w, h);
             },
@@ -337,11 +322,6 @@
                 FB.ctx.closePath();
                 FB.ctx.fill();
             },
-
-                        Image2:function(img,x,y,w,h){                
-                FB.ctx.drawImage(img,x,y,w,h);
-            },
-
 			Image:function(img,x,y){				
 				FB.ctx.drawImage(img,x,y);
 			},
@@ -393,25 +373,19 @@
             this.type = 'cloud';
             // random values so particles do no
             // travel at the same speeds
-            this.vy = -0.10;
+            this.vx = -0.10;
 
             this.remove = false;
 
             this.update = function () {
 
                 // update coordinates
-                this.y += this.vy;
-                if (this.y < (0)) {
-                    console.log('res');
+                this.x += this.vx;
+                if (this.x < (0 - 115)) {
                     this.respawn();
-
                 }
 
             };
-
-      this.randomIntFromInterval = function (min, max) {
-                return Math.floor(Math.random() * (max - min + 1) + min);
-            }
 
 
             this.render = function () {
@@ -426,8 +400,8 @@
 
             this.respawn = function () {
 
-                this.x =  this.randomIntFromInterval(0,FB.HEIGHT) ;
-                this.y = FB.HEIGHT ;
+                this.x = ~~ (Math.random() * this.r * 2) + FB.WIDTH;
+                this.y = ~~ (Math.random() * FB.HEIGHT / 2)
 
 
             };
@@ -436,37 +410,117 @@
 
         FB.BottomBar = function (x, y, r) {
 
+                                    this.rrandomIntFromInterval = function () {
+                            var e;
+                            var c;
+                            var t;
+                           
+
+                            e= Math.floor(Math.random() * (99 - 10 + 1) + 10);
+                            c= Math.floor(Math.random() * (99 - 10 + 1) + 10);
+                            t= Math.floor(Math.random() * (99 - 10 + 1) + 10);
+                           // console.log('#'+e.toString()+c.toString()+t.toString());
+return '#'+e.toString()+c.toString()+t.toString();
+                            
+                
+            }
+
+
             this.x = x;
             this.y = y
             this.r = r;
-            this.vx = -1;
+            this.vx = -2 ;
+            this.coin=true;
             this.name = 'BottomBar';
-
+           // this.color= this.randomIntFromInterval();
+              this.color= 'brown';
             this.update = function () {
+
+console.log(FB.score.coins);
+if(FB.score.coins>10){this.vx=-3.3;}
+
+
+                if((90 < this.x+this.r && 90>this.x)){
+
+          
+
+                    this.color='lightblue';
+                  //  console.log(FB.anterior);
+
+                }
+                else{
+                    this.color='brown';
+                }
                 // update coordinates
                 this.x += this.vx;
                 if (this.x < (0 - this.r)) {
                     this.respawn();
                 }
+
+
+               if (FB.Input.tapped) {
+//console.log(FB.Input.x);
+//console.log(FB.Input.y);
+
+                    if(this.color=='lightblue' && (FB.Input.x < this.x+this.r && FB.Input.x>this.x) && (FB.Input.y > this.y && FB.Input.y < this.y + ((FB.HEIGHT - this.y) / 2) )){
+                     this.y += -30;
+                    }
+                    else if (this.color=='lightblue' && (FB.Input.x < this.x+this.r && FB.Input.x>this.x) && (FB.Input.y > this.y + ((FB.HEIGHT - this.y) / 2) ) ){               
+                     this.y += 30;
+                    }
+
+                }
+
             };
 
             this.render = function () {
-                FB.Draw.rect(this.x, this.y, this.r, 75, '#D2691E');
-                for (var i = 0; i < 10; i++) {
-                    FB.Draw.semiCircle(this.x + i * (this.r / 9), this.y, 20, '#050');
+
+                if (this.coin) {
+                    FB.Draw.circle(this.x + this.r / 2, this.y -50, 5, "Gold");
                 }
+
+                FB.Draw.rect(this.x, this.y, this.r, 400, this.color);
+
+
+              //  for (var i = 0; i < 10; i++) {
+              //      FB.Draw.semiCircle(this.x + i * (this.r / 9), this.y, 20, '#050');
+              //  }
             }
 
             this.respawn = function () {
-                this.x = FB.WIDTH - 1;
+                this.coin = true;
+                var dd = this.randomIntFromInterval(0,1);
+                //console.log(dd);
+                this.x = FB.WIDTH-1;
+
+
+                if(this.y>=370){this.y += -30}
+                else if(this.y<=280){this.y += 30}  
+                else if (dd>0){this.y += 30} //1 para abajo
+                else{this.y += -30}
+
+               //if(dd<7 && 150<this.y<370){ this.y += 30} //para abajo
+                //else if(dd>=7 && this.y>150){ this.y += -30}
+               
             }
 
+
+            this.randomIntFromInterval = function (min, max) {
+                return Math.floor(Math.random() * (max - min + 1) + min);
+            }
+
+     
+
+
         }
+
+
+
 
         FB.Tree = function (x, y) {
 
             this.x = x;
-            this.y = y;
+            this.y = y
             this.r = 30;
             this.h = 50;
             this.w = this.r * 2;
@@ -496,179 +550,6 @@
 
         }
 
-        FB.Guardias = function(x, y,h){
-
-
-
-      this.randomIntFromInterval = function (min, max) {
-                return Math.floor(Math.random() * (max - min + 1) + min);
-            }
-         //  rect: function (x, y, w, h, col) {
-               this.x=x;
-               this.y=y;
-               this.w=this.randomIntFromInterval(30, FB.WIDTH-200);
-               this.h=h;
-               this.vy=2;
-               this.coin=true;
-this.type = 'guardias';
-
-               this.img2 = new Image();
-                this.img2.src = 'terra2.png';
-
-
-            /*
-                    Soldado
-            */
-
-         this.img = new Image();
-            this.img.src = 'enemy1.png';
-   
-            this.width = 31;
-            this.height = 32;
-            this.direction=-1;
-            this.ix = 0;
-            this.iy = 0;
-            this.fr = 0;
-           // this.vyS = 0;
-           this.vxS;
-           this.vyS;
-         
-     
-
-                if(this.w>(FB.WIDTH-(this.w+120))){ this.vxS = 0}
-else{this.vxS = ((FB.WIDTH-5))}
-
-
-
-            /*END*/
-
-                this.update = function () {
-
-                                        if (this.y > FB.HEIGHT) {
-                    this.respawn();
-                }
-
-
-if(this.vxS<0){
-     this.img.src = 'enemy1.png';//2
-     this.direction = this.direction * -1;
-}
-if(this.vxS>FB.WIDTH-4){
-     this.img.src = 'enemy1.png';
-     this.direction = this.direction * -1;
-}
-
-
-if(this.w>(FB.WIDTH-(this.w+120))){ 
-    if(this.vxS>this.w){
-         this.img.src = 'enemy1.png';
-         this.direction = this.direction * -1;
-    }
-
-}
-else{
-
-    if(this.vxS<((this.w+120))){
-         this.img.src = 'enemy1.png';//2
-         this.direction = this.direction * -1;
-    }
-
-}
-
-
-                    this.vxS+= this.direction; //mover soldado
-
-
-
-                // update coordinates
-                    this.y += this.vy;
-
-                    this.vyS=this.y-this.height/2; //mover soldado
-
-
-                     
-
-
-
-                if (this.fr++ > 4) {
-
-                    this.fr = 0;
-
-                    if (this.ix == this.width * 2) {
-                        this.ix = 0
-
-                    }
-                    else{
-                    this.ix += this.width;
-                     }
-                     //console.log(this.iy);
-                }
-
-
-
-/*soldado
-                if (this.fr++ > 4) {
-                    this.fr = 0;
-
-
-                    if (this.ix == 12) {
-                        this.ix = 56;
-
-                    }
-                    else if(this.ix == 56){
-                        this.ix=98;
-                    }
-                    else if(this.ix == 98){
-                        this.ix=143;
-                    }
-                    else{
-                    this.ix=12;
-                     }
-                  
-                }*/
-
-
-                };
-
-
-                this.render = function () {
-
-                if (this.coin) {
-                    FB.Draw.circle(this.x+this.w+60, this.y, 5,"Gold");
-                }
-
-                //Image:function(img,x,y)
-
-                FB.Draw.Image2(this.img2, this.x,this.y,this.w,this.h);
-
-               // FB.Draw.rectImg(this.x,this.y, this.w, this.h, this.img2);
-
-                FB.Draw.Image2(this.img2, this.w+120, this.y, FB.WIDTH-(this.w+120), this.h);
-                                //soldado
-            //    FB.Draw.Sprite(this.img, this.ix, this.iy, this.width, this.height, this.vxS, this.vyS, this.width, this.height, this.rotation);
-
-                }
-
-
-            this.randomIntFromInterval = function (min, max) {
-                return Math.floor(Math.random() * (max - min + 1) + min);
-            }
-
-            this.respawn = function () {
-                
-                this.y = -100;
-                this.w=this.randomIntFromInterval(30, FB.WIDTH-100);
-
-                if(this.w>(FB.WIDTH-(this.w+120))){ this.vxS = 0}
-else{this.vxS = (FB.WIDTH-5)}
-
-       this.coin = true;
-            }
-
-          
-
-        }
-
         FB.Pipe = function (x, w) {
 
             this.centerX = x;
@@ -694,8 +575,6 @@ else{this.vxS = (FB.WIDTH-5)}
                 }
                 FB.Draw.rect(this.centerX, 0, this.w, this.centerY - 50, '#8ED6FF');
                 FB.Draw.rect(this.centerX, this.centerY + 50, this.w, this.h - this.centerY, '#8ED6FF');
-
-
             }
 
             this.respawn = function () {
@@ -711,74 +590,17 @@ else{this.vxS = (FB.WIDTH-5)}
             this.centerY = this.randomIntFromInterval(70, 220);
         }
 
-
-
-
-              FB.Soldado = function () {
+        FB.Bird = function () {
 
             this.img = new Image();
-            this.img.src = 'guardian1.png';
-   
-            this.width = 33;
-            this.height = 54;
-            this.direction=1;
-            this.ix = 12;
-            this.iy = 7;
-            this.fr = 0;
-            this.vy = 50;
-            this.vx = 50;
-            this.type = 'soldier';
-
-            this.update = function () {
-
-
-if(this.direction>0){this.img.src='guardian1.png'}
-else if(this.direction<0){this.img.src='guardian2.png'}  
-
-                if (this.fr++ > 4) {
-                    this.fr = 0;
-
-
-                    if (this.ix == 12) {
-                        this.ix = 56;
-
-                    }
-                    else if(this.ix == 56){
-                        this.ix=98;
-                    }
-                    else if(this.ix == 98){
-                        this.ix=143;
-                    }
-                    else{
-                    this.ix=12;
-                     }
-                  
-                }
-
-
-            };
-
-            this.render = function () {
-
-                FB.Draw.Sprite(this.img, this.ix, this.iy, this.width, this.height, this.vx, this.vy, this.width, this.height, this.rotation);
-            }
-
-        }
-
-
-
-              FB.Bird = function () {
-
-            this.img = new Image();
-            this.img.src = 'bat3.png';
+            this.img.src = 'gori2.png';
             this.gravity = 0.25;
-            this.width = 64;
-            this.height = 64;
-            this.direction=2;
+            this.width = 70
+            this.height = 72;
             this.ix = 0;
             this.iy = 0;
             this.fr = 0;
-            this.vy = 352+25;
+            this.vy = 180;
             this.vx = 80;
             this.velocity = 0;
             this.play = false;
@@ -788,12 +610,9 @@ else if(this.direction<0){this.img.src='guardian2.png'}
             this.update = function () {
 
 
-if(this.direction>0){this.img.src='bat3.png'}
-else if(this.direction<0){this.img.src='bat4.png'}  
-
                 if (this.fr++ > 4) {
                     this.fr = 0;
-                    if (this.iy == this.height * 2) {
+                    if (this.iy == this.height * 7) {
                         this.iy = 0
 
                     }
@@ -805,16 +624,10 @@ else if(this.direction<0){this.img.src='bat4.png'}
 
 
                 if (this.play) {
-
-                    this.vx += this.direction;
-                  //  this.velocity += this.gravity;
-                   // this.vy += this.velocity;
-                    if (this.vx >= FB.WIDTH-(this.width/2)) {
-                        this.vx = FB.WIDTH-(this.width/2);
-                    }
-
-                    if (this.vx <= (this.width/2)) {
-                        this.vx = (this.width/2);
+                    this.velocity += this.gravity;
+                    this.vy += this.velocity;
+                    if (this.vy <= 0) {
+                        this.vy = 0;
                     }
                    // if (this.vy >= 370) {
                    //     this.vy = 370;
@@ -823,7 +636,6 @@ else if(this.direction<0){this.img.src='bat4.png'}
                 }
                 if (FB.Input.tapped) {
                     this.play = true;
-                    this.direction = this.direction * -1;
                    // play_sound(soundJump);
                     //this.velocity = this.jump;
                 }
@@ -835,6 +647,7 @@ else if(this.direction<0){this.img.src='bat4.png'}
             }
 
         }
+
         FB.Particle = function (x, y, r, col, type) {
 
             this.x = x;
@@ -891,53 +704,6 @@ else if(this.direction<0){this.img.src='bat4.png'}
 
         };
 
-
-        FB.Collides = function (bird, guardias) {
-        
-        /*
-            if(bird.vy >=370){                  
-                 
-               return true;
-            }
-         
-            if (pipe.coin && bird.vx > pipe.centerX + pipe.w / 2 - 5) {
-                pipe.coin = false;
-                FB.score.coins += 1;
-                FB.digits = FB.score.coins.toString().split('');
-                play_sound(soundScore);
-            }
-        */
-var gy = guardias.y;
-var gw = guardias.w;
-var gh = guardias.h;
-var bx = bird.vx;
-var by = bird.vy;
-var bw = bird.width;
-var gx = guardias.x;
-
-        if(((gy+gh)>=by) && gy<FB.HEIGHT-75){
-
-            
-                if(gw>bx){console.log('fr');return true}
-            
-           
-                else if((gw+120+40)<(bx+bw)){console.log('secs');return true}
-
-                else if(guardias.coin){
-                                    FB.score.coins += 1;
-                FB.digits = FB.score.coins.toString().split('');
-                play_sound(soundScore);
-                guardias.coin=false;
-                return false;
-                }
-                
-        }
-
-
-            
-
-        };
-/*
          // checks if two entities are touching
         FB.Collides = function (bird, pipe) {
 		
@@ -980,7 +746,6 @@ var gx = guardias.x;
             return (c1 || c2)
 
         };
-        */
 		
 		window.Splash = function(){
 			
@@ -990,19 +755,22 @@ var gx = guardias.x;
 			this.init = function(){
 				play_sound(soundSwoosh);
 				FB.distance = 0;
-                FB.bg_grad = "night";
+                FB.bg_grad = "day";
                 FB.entities = [];
 				FB.score.taps = FB.score.coins = 0;
                 //Add entities
                 FB.entities.push(new FB.Cloud(30, ~~ (Math.random() * FB.HEIGHT / 2)));
                 FB.entities.push(new FB.Cloud(130, ~~ (Math.random() * FB.HEIGHT / 2)));
                 FB.entities.push(new FB.Cloud(230, ~~ (Math.random() * FB.HEIGHT / 2)));
-                ///for (i = 0; i < 2; i += 1) {
-              //      FB.entities.push(new FB.BottomBar(FB.WIDTH * i, FB.HEIGHT - 75, FB.WIDTH));
-              //  }
-              //  FB.entities.push(new FB.Tree(~~(Math.random() * FB.WIDTH), FB.HEIGHT - 160+25));
-              ///  FB.entities.push(new FB.Tree(~~(Math.random() * FB.WIDTH + 50), FB.HEIGHT - 160+25));
-              //  FB.entities.push(new FB.Tree(~~(Math.random() * FB.WIDTH + 100), FB.HEIGHT - 160+25));
+             
+
+
+                for (i = 0; i < 4; i += 1) {
+                    FB.entities.push(new FB.BottomBar((FB.WIDTH/3) * i, FB.HEIGHT - 100, (FB.WIDTH/3)+1));
+                }
+                //FB.entities.push(new FB.Tree(~~(Math.random() * FB.WIDTH), FB.HEIGHT - 160));
+               // FB.entities.push(new FB.Tree(~~(Math.random() * FB.WIDTH + 50), FB.HEIGHT - 160));
+               // FB.entities.push(new FB.Tree(~~(Math.random() * FB.WIDTH + 100), FB.HEIGHT - 160));
 			}
 			
 			this.update = function(){
@@ -1024,15 +792,13 @@ var gx = guardias.x;
 		window.Play = function(){
 			
 			this.init = function(){			
-				 
-                // x , width
+				
+                
                // FB.entities.push(new FB.Pipe(FB.WIDTH * 2, 50));
                // FB.entities.push(new FB.Pipe(FB.WIDTH * 2 + FB.WIDTH / 2, 50));
                // FB.entities.push(new FB.Pipe(FB.WIDTH * 3, 50));
-                FB.entities.push(new FB.Guardias(0, 0,35));
-                 FB.entities.push(new FB.Guardias(0, -200,35));
-                 FB.entities.push(new FB.Guardias(0, -400,35));
-
+ffd=370;
+  var anterior;
                 FB.bird = new FB.Bird();
                 FB.entities.push(FB.bird);
 				for(var n=0;n<10;n++){
@@ -1044,7 +810,9 @@ var gx = guardias.x;
 			}
 			
 			this.update = function() { 
-				
+
+				// drawFractalTree(FB.ctx); drawFractalTree(FB.ctx);
+
 				FB.distance += 1;
                 var levelUp = ((FB.distance % 2048) === 0) ? true : false;
                 if (levelUp) {
@@ -1080,11 +848,51 @@ var gx = guardias.x;
 
                     checkCollision = true;
                 }
-
+              
                 // cycle through all entities and update as necessary
                 for (i = 0; i < FB.entities.length; i += 1) {
                     FB.entities[i].update();
-                    /*
+
+                //    if (FB.bird.vy >= ffd) {FB.changeState('GameOver');
+
+                        FB.bird.vy = ffd-((FB.bird.height/2)-10);
+               //     }
+
+                    if(FB.entities[i].name == 'BottomBar'){
+
+
+                        if(FB.entities[i].x == 90 || FB.entities[i].x == 91 ){ 
+                            console.log('dd222');
+                           // console.log(FB.bird.vy);
+                          //   console.log(FB.entities[i].y-((FB.bird.height/2)-10));
+                                
+                                if(!(FB.entities[i].y-((FB.bird.height/2)-10)==FB.bird.vy))
+                            {
+                            FB.changeState('GameOver');
+                             break;
+                            }
+                            else{
+                                FB.entities[i].coin=false;
+                                FB.score.coins += 1;
+                                FB.digits = FB.score.coins.toString().split('');
+                                play_sound(soundScore);
+                            }
+
+                        }
+
+                        if(90 < FB.entities[i].x+FB.entities[i].r && 90>FB.entities[i].x) {
+                            ffd = FB.entities[i].y;
+                         }
+
+
+                        //if(90+(FB.WIDTH/3) < FB.entities[i].x+FB.entities[i].r && 90+(FB.WIDTH/3)>FB.entities[i].x) {
+                       //     FB.entities[i].color='blue';
+                            //FB.anterior= FB.entities[i].y;
+                       //  }
+
+                    }    
+
+
                     if (FB.entities[i].type === 'pipe') {
                         var hit = FB.Collides(FB.bird, FB.entities[i]);
                         if (hit) {
@@ -1093,23 +901,13 @@ var gx = guardias.x;
 							 break;
                         }
                     }
-                    */
-
-                 if (FB.entities[i].type === 'guardias') {
-                        var hit = FB.Collides(FB.bird, FB.entities[i]);
-                        if (hit) {
-                            play_sound(soundHit);
-                            FB.changeState('GameOver');
-                             break;
-                        }
-                    }
-
-
                 }
 			}
 			
 			this.render = function() { 
+
 				//score				
+
 				var X = (FB.WIDTH/2-(FB.digits.length*14)/2);				
 				for(var i = 0; i < FB.digits.length; i++)
 				{
@@ -1160,9 +958,9 @@ var gx = guardias.x;
 					play_sound(soundDie);
 					that.banner = new Image();
 					that.banner.src = "scoreboard2.png";
-					var m = that.getMedal();
-					that.medal =  new Image();
-					that.medal.src = 'medal_' + m +'.png';
+				//	var m = that.getMedal();
+					//that.medal =  new Image();
+				//	that.medal.src = 'medal_' + m +'.png';
 					that.replay = new Image();
 					that.replay.src = "replay2.png";
 					that.highscore = that.getHighScore() ;
@@ -1186,10 +984,10 @@ var gx = guardias.x;
 			this.render = function(){
 				if(this.banner){
 					FB.Draw.Image(this.banner,42,70);
-				//	FB.Draw.Image(this.medal,75,183);
+					//FB.Draw.Image(this.medal,75,183);
 					FB.Draw.Image(this.replay,102.5,260);
-					FB.Draw.text(FB.score.coins, 220, 185, 15, 'black');
-					FB.Draw.text(this.highscore, 220, 225, 15, 'black');
+					FB.Draw.text(FB.score.coins, 155, 193, 15, 'black');
+					FB.Draw.text(this.highscore, 150, 235, 15, 'black');
 				}
 			}
 		
